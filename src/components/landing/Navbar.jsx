@@ -232,7 +232,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-1 w-48 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl py-2 z-55 text-left text-slate-800 dark:text-slate-200"
+                    className="absolute top-full left-0 mt-1 w-48 rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl py-2 z-55 text-left text-slate-800 dark:text-slate-200"
                   >
                     <Link
                       to="/about-school"

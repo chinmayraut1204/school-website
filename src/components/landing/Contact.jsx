@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, MessageCircle, Globe, Share2, Play, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Sparkles } from 'lucide-react';
 import GlassCard from '../common/GlassCard';
 import Button from '../common/Button';
 import { useToast } from '../../context/ToastContext';
@@ -207,21 +207,7 @@ const Contact = () => {
                 />
               </div>
 
-              {/* Social Channels */}
-              <div className="flex gap-3 justify-center pt-6 border-t border-slate-100 dark:border-slate-800 mt-6">
-                <a href="#contact" className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 text-indigo-600 dark:text-indigo-400 hover:scale-105 transition-transform" title="Facebook">
-                  <Globe className="w-4.5 h-4.5" />
-                </a>
-                <a href="#contact" className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 text-blue-500 hover:scale-105 transition-transform" title="Twitter">
-                  <Share2 className="w-4.5 h-4.5" />
-                </a>
-                <a href="#contact" className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 text-red-500 hover:scale-105 transition-transform" title="Youtube">
-                  <Play className="w-4.5 h-4.5" />
-                </a>
-                <a href="#contact" className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 text-emerald-500 hover:scale-105 transition-transform" title="WhatsApp">
-                  <MessageCircle className="w-4.5 h-4.5" />
-                </a>
-              </div>
+
             </GlassCard>
           </div>
         </div>
