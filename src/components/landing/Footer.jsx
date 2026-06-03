@@ -5,7 +5,7 @@ import { useToast } from '../../context/ToastContext';
 import { Heart, Send, Globe, Mail, ArrowUpRight, HelpCircle, FileText } from 'lucide-react';
 
 const Footer = () => {
-  const { totalRaised, schoolStats, schoolContact } = useSchoolData();
+  const { schoolContact } = useSchoolData();
   const { showToast } = useToast();
   const [email, setEmail] = useState('');
 
@@ -52,34 +52,29 @@ const Footer = () => {
           <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
             Empowering tribal (Adivasi) residential school children in Jawhar, Palghar with modern science labs, computer rooms, high-protein meals, and scholarships under {schoolContact.trustName}.
           </p>
-          
-          {/* Active stats display */}
-          <div className="flex items-center gap-6 mt-2">
-            <div className="text-left">
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Raised Funds</span>
-              <span className="text-sm font-extrabold text-emerald-400">₹{totalRaised.toLocaleString()}</span>
-            </div>
-            <div className="w-[1px] h-8 bg-slate-800" />
-            <div className="text-left">
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Active Learners</span>
-              <span className="text-sm font-extrabold text-indigo-400">{schoolStats.totalStudents}+ Students</span>
-            </div>
-          </div>
         </div>
 
         {/* Column 2: Quick Links */}
         <div className="md:col-span-2 flex flex-col items-start text-left gap-4">
           <h4 className="text-xs font-bold uppercase tracking-widest text-slate-200">Navigation</h4>
           <ul className="text-xs space-y-2 font-medium">
-            {['About', 'Stats', 'Faculty', 'Activities', 'Gallery', 'Testimonials', 'FAQ', 'Contact'].map((link) => (
-              <li key={link}>
-                <a 
-                  href={`#${link.toLowerCase()}`}
+            {[
+              { name: 'About School', href: '/about-school' },
+              { name: 'About Founder', href: '/about-founder' },
+              { name: 'About Principal', href: '/about-principal' },
+              { name: 'Faculty', href: '/faculty' },
+              { name: 'Activities', href: '/activities' },
+              { name: 'Sponsors', href: '/sponsors' },
+              { name: 'Contact', href: '/#contact' }
+            ].map((link) => (
+              <li key={link.name}>
+                <Link 
+                  to={link.href}
                   className="hover:text-indigo-400 transition-colors flex items-center gap-1"
                 >
                   <ArrowUpRight className="w-3 h-3 text-slate-600" />
-                  {link}
-                </a>
+                  {link.name}
+                </Link>
               </li>
             ))}
           </ul>

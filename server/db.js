@@ -36,6 +36,10 @@ export const initDB = async () => {
 
     const conn = await pool.getConnection();
 
+    // Drop unused tables to align with landing home page structures
+    await conn.query('DROP TABLE IF EXISTS donations');
+    await conn.query('DROP TABLE IF EXISTS school_stats');
+
     // 3. Create Tables programmatically
     await conn.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -87,32 +91,6 @@ export const initDB = async () => {
       console.log('Database initialized: Seeded initial gallery images.');
     }
 
-    // Donations Table
-    await conn.query(`
-      CREATE TABLE IF NOT EXISTS donations (
-        id VARCHAR(50) PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        amount INT NOT NULL,
-        message TEXT,
-        category VARCHAR(50),
-        date VARCHAR(20)
-      )
-    `);
-
-    const [donations] = await conn.query('SELECT * FROM donations');
-    if (donations.length === 0) {
-      const initialDonations = [
-        { id: 'don-1', name: 'Rohan Sharma', amount: 500, message: 'For the computer lab desks and keyboards.', category: 'Infrastructure', date: '2026-05-29' },
-        { id: 'don-2', name: 'Dr. Anita Desai', amount: 1500, message: 'Sponsoring library books and science equipment.', category: 'Learning Material', date: '2026-05-28' },
-        { id: 'don-3', name: 'Anonymous Giver', amount: 100, message: 'Keep up the amazing work with these kids!', category: 'Sports Equipment', date: '2026-05-27' },
-        { id: 'don-4', name: 'Vikram & Priya Goel', amount: 3000, message: 'Scholarship fund for bright tribal students.', category: 'Scholarships', date: '2026-05-25' },
-        { id: 'don-5', name: 'Sneha Patel', amount: 250, message: 'Midday meal contributions.', category: 'Nutrition', date: '2026-05-22' }
-      ];
-      for (const item of initialDonations) {
-        await conn.query('INSERT INTO donations (id, name, amount, message, category, date) VALUES (?, ?, ?, ?, ?, ?)', [item.id, item.name, item.amount, item.message, item.category, item.date]);
-      }
-    }
-
     // Announcements Table
     await conn.query(`
       CREATE TABLE IF NOT EXISTS announcements (
@@ -136,28 +114,6 @@ export const initDB = async () => {
       }
     }
 
-    // Stats Table
-    await conn.query(`
-      CREATE TABLE IF NOT EXISTS school_stats (
-        id VARCHAR(20) PRIMARY KEY,
-        totalStudents INT,
-        girlsRatio INT,
-        passRate FLOAT,
-        teachersCount INT,
-        classroomsCount INT,
-        labsCount INT,
-        smartClassrooms INT
-      )
-    `);
-
-    const [stats] = await conn.query('SELECT * FROM school_stats WHERE id = ?', ['current']);
-    if (stats.length === 0) {
-      await conn.query(`
-        INSERT INTO school_stats (id, totalStudents, girlsRatio, passRate, teachersCount, classroomsCount, labsCount, smartClassrooms)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `, ['current', 480, 48, 97.8, 22, 16, 4, 6]);
-    }
-
     // Content Table
     await conn.query(`
       CREATE TABLE IF NOT EXISTS school_content (
@@ -179,6 +135,86 @@ export const initDB = async () => {
         'To deliver modern residential education and sports training that equips tribal students from marginalized backgrounds with digital skills, analytical capabilities, and ethical values to become self-reliant leaders of tomorrow.',
         'To build a model digital-first residential institution where learning is interactive, creative, inclusive, and accessible to tribal youths, bridging the socio-economic divide through community empowerment.'
       ]);
+    }
+
+    // Campus Life Table
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS campus_life (
+        id VARCHAR(50) PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        url LONGTEXT NOT NULL
+      )
+    `);
+
+    const [campusLife] = await conn.query('SELECT * FROM campus_life');
+    if (campusLife.length === 0) {
+      const initialCampusLife = [
+        {
+          id: "cl-1",
+          title: "Classroom Activities",
+          description: "Interactive learning in modern digital classrooms.",
+          url: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-2",
+          title: "Science Lab",
+          description: "Hands-on experiments in our physics, chemistry, and biology labs.",
+          url: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-3",
+          title: "Computer Lab",
+          description: "Coding bootcamps and digital literacy training sessions.",
+          url: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-4",
+          title: "Sports Events",
+          description: "Fierce athletics meets, volleyball championships, and archery drills.",
+          url: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-5",
+          title: "Cultural Programs",
+          description: "Traditional Warli art workshops and folk music celebrations.",
+          url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-6",
+          title: "Annual Day",
+          description: "Grand stage performances, dramas, and academic prize distributions.",
+          url: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-7",
+          title: "Competitions",
+          description: "Inter-school science exhibitions, chess tourneys, and debates.",
+          url: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-8",
+          title: "School Celebrations",
+          description: "Republic Day parades, Independence Day events, and festivals.",
+          url: "https://images.unsplash.com/photo-1505232458627-539c1793a52d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-9",
+          title: "Educational Tours",
+          description: "Outdoor environmental excursions, museum visits, and science city tours.",
+          url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: "cl-10",
+          title: "Student Achievements",
+          description: "Celebrating state-level archery champions and top rankers.",
+          url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+        }
+      ];
+      for (const item of initialCampusLife) {
+        await conn.query('INSERT INTO campus_life (id, title, description, url) VALUES (?, ?, ?, ?)', [item.id, item.title, item.description, item.url]);
+      }
+      console.log('Database initialized: Seeded default campus life items.');
     }
 
     conn.release();

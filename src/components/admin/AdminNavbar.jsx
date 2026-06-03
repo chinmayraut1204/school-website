@@ -7,12 +7,10 @@ const AdminNavbar = ({ activeTab, setSidebarOpen, sidebarOpen }) => {
 
   const getTitle = () => {
     switch (activeTab) {
-      case 'analytics': return 'Performance & Analytics';
       case 'content': return 'Content Management';
-      case 'donations': return 'Donation Activity Log';
       case 'announcements': return 'Announcement Board';
       case 'gallery': return 'Gallery Media Manager';
-      case 'sponsors': return 'Partners & Sponsors';
+      case 'campus-life': return 'Sponsors';
       default: return 'Admin Desk';
     }
   };

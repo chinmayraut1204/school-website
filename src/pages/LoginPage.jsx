@@ -13,7 +13,6 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { showToast } = useToast();
@@ -39,11 +38,8 @@ const LoginPage = () => {
       const response = await api.post('/auth/login', { username, password });
       const { token, fallback } = response.data;
 
-      if (rememberMe) {
-        localStorage.setItem('token', token);
-      } else {
-        sessionStorage.setItem('token', token);
-      }
+      sessionStorage.setItem('token', token);
+      localStorage.removeItem('token');
 
       showToast(
         fallback 
@@ -58,11 +54,8 @@ const LoginPage = () => {
       // Client-side authentication fallback if database/server is completely offline
       if (username === 'chinmay raut' && password === 'chinmay@1204') {
         const dummyToken = `dummy-jwt-${Date.now()}`;
-        if (rememberMe) {
-          localStorage.setItem('token', dummyToken);
-        } else {
-          sessionStorage.setItem('token', dummyToken);
-        }
+        sessionStorage.setItem('token', dummyToken);
+        localStorage.removeItem('token');
         showToast('Logged in successfully (Offline Sandbox Mode)', 'success');
         navigate(redirectPath, { replace: true });
       } else {
@@ -157,18 +150,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Remember Me */}
-            <div className="flex items-center justify-between py-1">
-              <label className="flex items-center gap-2 text-xs text-slate-500 font-medium select-none cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="rounded text-indigo-600 border-slate-300 dark:border-slate-800 bg-transparent focus:ring-0 focus:ring-offset-0"
-                />
-                Remember login session
-              </label>
-            </div>
+
 
             {/* Submit Button */}
             <Button

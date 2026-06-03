@@ -8,6 +8,12 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const AboutSchoolPage = lazy(() => import('./pages/AboutSchoolPage'));
+const AboutFounderPage = lazy(() => import('./pages/AboutFounderPage'));
+const AboutPrincipalPage = lazy(() => import('./pages/AboutPrincipalPage'));
+const FacultyPage = lazy(() => import('./pages/FacultyPage'));
+const ActivitiesPage = lazy(() => import('./pages/ActivitiesPage'));
+const SponsorsPage = lazy(() => import('./pages/SponsorsPage'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
@@ -25,6 +31,12 @@ function App() {
               <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/about-school" element={<AboutSchoolPage />} />
+                <Route path="/about-founder" element={<AboutFounderPage />} />
+                <Route path="/about-principal" element={<AboutPrincipalPage />} />
+                <Route path="/faculty" element={<FacultyPage />} />
+                <Route path="/activities" element={<ActivitiesPage />} />
+                <Route path="/sponsors" element={<SponsorsPage />} />
                 <Route 
                   path="/admin" 
                   element={

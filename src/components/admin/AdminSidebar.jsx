@@ -1,24 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
-  BarChart3, 
   FileText, 
-  HeartHandshake, 
   Megaphone, 
   Image as ImageIcon, 
-  Users, 
   Home, 
-  LogOut 
+  LogOut,
+  Award
 } from 'lucide-react';
 
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
+  const navigate = useNavigate();
   const menuItems = [
-    { id: 'analytics', name: 'Analytics', icon: <BarChart3 className="w-5 h-5" /> },
     { id: 'content', name: 'School Content', icon: <FileText className="w-5 h-5" /> },
-    { id: 'donations', name: 'Donations Log', icon: <HeartHandshake className="w-5 h-5" /> },
     { id: 'announcements', name: 'Announcements', icon: <Megaphone className="w-5 h-5" /> },
     { id: 'gallery', name: 'Gallery Manager', icon: <ImageIcon className="w-5 h-5" /> },
-    { id: 'sponsors', name: 'Partners/Sponsors', icon: <Users className="w-5 h-5" /> },
+    { id: 'campus-life', name: 'Sponsors', icon: <Award className="w-5 h-5" /> },
   ];
 
   return (
@@ -73,7 +70,9 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
         </Link>
         <button
           onClick={() => {
-            alert('Logging out of administrative mock desk.');
+            sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
+            navigate('/login', { replace: true });
           }}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-rose-400 hover:bg-rose-500/10 transition-colors"
         >

@@ -1,14 +1,9 @@
 import React from 'react';
 import Navbar from '../components/landing/Navbar';
 import Hero from '../components/landing/Hero';
-import Ticker from '../components/landing/Ticker';
 import About from '../components/landing/About';
-import StatsDashboard from '../components/landing/StatsDashboard';
-import Faculty from '../components/landing/Faculty';
-import Activities from '../components/landing/Activities';
-import Donation from '../components/landing/Donation';
-import Sponsors from '../components/landing/Sponsors';
 import Gallery from '../components/landing/Gallery';
+import CampusLife from '../components/landing/CampusLife';
 import Testimonials from '../components/landing/Testimonials';
 import FAQ from '../components/landing/FAQ';
 import Contact from '../components/landing/Contact';
@@ -25,14 +20,9 @@ const LandingPage = () => {
       {/* Landing Blocks */}
       <main>
         <Hero />
-        <Ticker />
         <About />
-        <StatsDashboard />
-        <Faculty />
-        <Activities />
-        <Donation />
-        <Sponsors />
         <Gallery />
+        <CampusLife />
         <Testimonials />
         <FAQ />
         <Contact />

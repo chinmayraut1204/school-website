@@ -133,45 +133,39 @@ app.delete('/api/gallery/:id', checkDbStatus, authenticateToken, async (req, res
   }
 });
 
-// --- DONATIONS ROUTES ---
+// --- CAMPUS LIFE / ACTIVITIES CAROUSEL ROUTES ---
 
-app.get('/api/donations', checkDbStatus, async (req, res) => {
+app.get('/api/campus-life', checkDbStatus, async (req, res) => {
   try {
     const db = getPool();
-    const [donations] = await db.query('SELECT * FROM donations ORDER BY date DESC');
-    res.json(donations);
+    const [items] = await db.query('SELECT * FROM campus_life');
+    res.json(items);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.post('/api/donations', checkDbStatus, async (req, res) => {
-  const { name, amount, message, category } = req.body;
-  if (!name || !amount) {
-    return res.status(400).json({ error: 'Name and amount values are required.' });
+app.post('/api/campus-life', checkDbStatus, authenticateToken, async (req, res) => {
+  const { title, description, url } = req.body;
+  if (!title || !url) {
+    return res.status(400).json({ error: 'Missing title or image url.' });
   }
 
   try {
     const db = getPool();
-    const id = `don-${Date.now()}`;
-    const date = new Date().toISOString().split('T')[0];
-    const item = { id, name, amount, message: message || '', category: category || 'General', date };
-    
-    await db.query(
-      'INSERT INTO donations (id, name, amount, message, category, date) VALUES (?, ?, ?, ?, ?, ?)', 
-      [id, name, amount, message || '', category || 'General', date]
-    );
-    res.status(201).json(item);
+    const id = `cl-${Date.now()}`;
+    await db.query('INSERT INTO campus_life (id, title, description, url) VALUES (?, ?, ?, ?)', [id, title, description || '', url]);
+    res.status(201).json({ id, title, description: description || '', url });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.delete('/api/donations/:id', checkDbStatus, authenticateToken, async (req, res) => {
+app.delete('/api/campus-life/:id', checkDbStatus, authenticateToken, async (req, res) => {
   try {
     const db = getPool();
-    await db.query('DELETE FROM donations WHERE id = ?', [req.params.id]);
-    res.json({ success: true, message: 'Ledger donation removed.' });
+    await db.query('DELETE FROM campus_life WHERE id = ?', [req.params.id]);
+    res.json({ success: true, message: 'Campus life card deleted from database.' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -211,35 +205,6 @@ app.delete('/api/announcements/:id', checkDbStatus, authenticateToken, async (re
     const db = getPool();
     await db.query('DELETE FROM announcements WHERE id = ?', [req.params.id]);
     res.json({ success: true, message: 'Notice bulletin deleted.' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// --- STATS & METRICS ROUTES ---
-
-app.get('/api/stats', checkDbStatus, async (req, res) => {
-  try {
-    const db = getPool();
-    const [stats] = await db.query('SELECT * FROM school_stats WHERE id = ?', ['current']);
-    res.json(stats[0]);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.post('/api/stats', checkDbStatus, authenticateToken, async (req, res) => {
-  const { totalStudents, girlsRatio, passRate, teachersCount, classroomsCount, labsCount, smartClassrooms } = req.body;
-  
-  try {
-    const db = getPool();
-    await db.query(`
-      UPDATE school_stats 
-      SET totalStudents = ?, girlsRatio = ?, passRate = ?, teachersCount = ?, classroomsCount = ?, labsCount = ?, smartClassrooms = ?
-      WHERE id = 'current'
-    `, [totalStudents, girlsRatio, passRate, teachersCount, classroomsCount, labsCount, smartClassrooms]);
-    
-    res.json({ success: true, message: 'Metrics updated.' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

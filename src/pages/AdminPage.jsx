@@ -1,34 +1,30 @@
 import React, { useState } from 'react';
 import AdminSidebar from '../components/admin/AdminSidebar';
 import AdminNavbar from '../components/admin/AdminNavbar';
-import AnalyticsTab from '../components/admin/AnalyticsTab';
 import ContentTab from '../components/admin/ContentTab';
-import DonationsTab from '../components/admin/DonationsTab';
 import AnnouncementsTab from '../components/admin/AnnouncementsTab';
 import GalleryTab from '../components/admin/GalleryTab';
-import SponsorsTab from '../components/admin/SponsorsTab';
+import CampusLifeTab from '../components/admin/CampusLifeTab';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminPage = () => {
-  const [activeTab, setActiveTab] = useState('analytics');
+  const [activeTab, setActiveTab] = useState('content');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'analytics':
-        return <AnalyticsTab />;
       case 'content':
         return <ContentTab />;
-      case 'donations':
-        return <DonationsTab />;
+
       case 'announcements':
         return <AnnouncementsTab />;
       case 'gallery':
         return <GalleryTab />;
-      case 'sponsors':
-        return <SponsorsTab />;
+      case 'campus-life':
+        return <CampusLifeTab />;
+
       default:
-        return <AnalyticsTab />;
+        return <ContentTab />;
     }
   };
 

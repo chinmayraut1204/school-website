@@ -152,17 +152,22 @@ const Contact = () => {
                 <h3 className="text-base font-bold text-slate-900 dark:text-white mb-6">Contact Directory</h3>
                 
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4">
+                  <a 
+                    href="https://maps.app.goo.gl/fxbLdHor1ciro2hv9" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-start gap-4 hover:opacity-80 transition-opacity"
+                  >
                     <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                       <MapPin className="w-4.5 h-4.5" />
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">Location</span>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 underline decoration-dotted decoration-indigo-500/50">
                         {schoolContact.address}
                       </p>
                     </div>
-                  </div>
+                  </a>
 
                   <div className="flex items-start gap-4">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -195,7 +200,7 @@ const Contact = () => {
                 {/* Embed modern stylized iframe maps placeholder */}
                 <iframe
                   title="School Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15024.16788540608!2d73.22019777977462!3d19.9226507421884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1m3!1d1197.876!2d73.2286!3d19.9125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.5350447305923!2d73.2114948!3d19.9860467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be74309859ef223%3A0x6f12719ba6677412!2sEklavya%20Primary%2C%20Secondary%20and%20Higher%20secondary%20Ashramschool%20Hiradpada!5e0!3m2!1sen!2sin!4v1717408000000!5m2!1sen!2sin"
                   className="w-full h-full border-none filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                   allowFullScreen=""
                   loading="lazy"

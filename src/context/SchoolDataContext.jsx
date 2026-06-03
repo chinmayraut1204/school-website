@@ -10,24 +10,6 @@ const initialAnnouncements = [
   { id: 'ann-4', text: '🥛 Nutrition Support: Special dietary additions sponsored for residential tribal hostel students.', type: 'info', date: '2026-05-15' }
 ];
 
-const initialDonations = [
-  { id: 'don-1', name: 'Rohan Sharma', amount: 500, message: 'For the computer lab desks and keyboards.', category: 'Infrastructure', date: '2026-05-29' },
-  { id: 'don-2', name: 'Dr. Anita Desai', amount: 1500, message: 'Sponsoring library books and science equipment.', category: 'Learning Material', date: '2026-05-28' },
-  { id: 'don-3', name: 'Anonymous Giver', amount: 100, message: 'Keep up the amazing work with these kids!', category: 'Sports Equipment', date: '2026-05-27' },
-  { id: 'don-4', name: 'Vikram & Priya Goel', amount: 3000, message: 'Scholarship fund for bright tribal students.', category: 'Scholarships', date: '2026-05-25' },
-  { id: 'don-5', name: 'Sneha Patel', amount: 250, message: 'Midday meal contributions.', category: 'Nutrition', date: '2026-05-22' }
-];
-
-const initialSchoolStats = {
-  totalStudents: 480,
-  girlsRatio: 48,
-  passRate: 97.8,
-  teachersCount: 22,
-  classroomsCount: 16,
-  labsCount: 4,
-  smartClassrooms: 6
-};
-
 const initialSchoolContact = {
   trustName: 'Shri Gagangiri Adivasi Shikshan Prasarak Sanstha Jamsar',
   schoolName: 'Eklavya Primary, Secondary Ashramschool and Junior College Hiradpada',
@@ -67,6 +49,69 @@ const initialGallery = [
   { id: 'gal-6', title: 'Healthy midday nutrition meals distribution', url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80', category: 'Events' }
 ];
 
+const initialCampusLife = [
+  {
+    id: "cl-1",
+    title: "Classroom Activities",
+    description: "Interactive learning in modern digital classrooms.",
+    url: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-2",
+    title: "Science Lab",
+    description: "Hands-on experiments in our physics, chemistry, and biology labs.",
+    url: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-3",
+    title: "Computer Lab",
+    description: "Coding bootcamps and digital literacy training sessions.",
+    url: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-4",
+    title: "Sports Events",
+    description: "Fierce athletics meets, volleyball championships, and archery drills.",
+    url: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-5",
+    title: "Cultural Programs",
+    description: "Traditional Warli art workshops and folk music celebrations.",
+    url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-6",
+    title: "Annual Day",
+    description: "Grand stage performances, dramas, and academic prize distributions.",
+    url: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-7",
+    title: "Competitions",
+    description: "Inter-school science exhibitions, chess tourneys, and debates.",
+    url: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-8",
+    title: "School Celebrations",
+    description: "Republic Day parades, Independence Day events, and festivals.",
+    url: "https://images.unsplash.com/photo-1505232458627-539c1793a52d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-9",
+    title: "Educational Tours",
+    description: "Outdoor environmental excursions, museum visits, and science city tours.",
+    url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "cl-10",
+    title: "Student Achievements",
+    description: "Celebrating state-level archery champions and top rankers.",
+    url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+  }
+];
+
 const initialSponsors = [
   { id: 'spon-1', name: 'EduGlow Foundation', logoText: 'EGF' },
   { id: 'spon-2', name: 'FutureTech Systems', logoText: 'FTS' },
@@ -80,16 +125,6 @@ export const SchoolDataProvider = ({ children }) => {
   const [announcements, setAnnouncements] = useState(() => {
     const saved = localStorage.getItem('school_announcements_v2');
     return saved ? JSON.parse(saved) : initialAnnouncements;
-  });
-
-  const [donations, setDonations] = useState(() => {
-    const saved = localStorage.getItem('school_donations_v2');
-    return saved ? JSON.parse(saved) : initialDonations;
-  });
-
-  const [schoolStats, setSchoolStats] = useState(() => {
-    const saved = localStorage.getItem('school_stats_v2');
-    return saved ? JSON.parse(saved) : initialSchoolStats;
   });
 
   const [schoolContact, setSchoolContact] = useState(() => {
@@ -117,6 +152,11 @@ export const SchoolDataProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : initialSponsors;
   });
 
+  const [campusLife, setCampusLife] = useState(() => {
+    const saved = localStorage.getItem('school_campus_life_v2');
+    return saved ? JSON.parse(saved) : initialCampusLife;
+  });
+
   const [isDbOffline, setIsDbOffline] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -124,19 +164,20 @@ export const SchoolDataProvider = ({ children }) => {
   useEffect(() => {
     const loadDbData = async () => {
       try {
-        const [annRes, donRes, statsRes, contentRes, galleryRes] = await Promise.all([
+        const [annRes, contentRes, galleryRes, campusLifeRes] = await Promise.all([
           api.get('/announcements'),
-          api.get('/donations'),
-          api.get('/stats'),
           api.get('/content'),
-          api.get('/gallery')
+          api.get('/gallery'),
+          api.get('/campus-life')
         ]);
         
         setAnnouncements(annRes.data);
-        setDonations(donRes.data);
-        setSchoolStats(statsRes.data);
-        setSchoolContent(contentRes.data);
+        setSchoolContent({
+          ...initialSchoolContent,
+          ...contentRes.data
+        });
         setGallery(galleryRes.data);
+        setCampusLife(campusLifeRes.data);
         setIsDbOffline(false);
         console.log('MySQL Database connection successfully verified.');
       } catch (error) {
@@ -149,73 +190,14 @@ export const SchoolDataProvider = ({ children }) => {
     loadDbData();
   }, []);
 
-  // Goal settings
-  const donationGoal = 50000;
 
-  // Derived donation figures
-  const totalRaised = donations.reduce((acc, curr) => acc + Number(curr.amount), 0);
-  const totalDonationsCount = donations.length;
 
   // Sync to LocalStorage as secondary backup fallback
   useEffect(() => {
     localStorage.setItem('school_announcements_v2', JSON.stringify(announcements));
   }, [announcements]);
 
-  useEffect(() => {
-    localStorage.setItem('school_donations_v2', JSON.stringify(donations));
-  }, [donations]);
-
-  useEffect(() => {
-    localStorage.setItem('school_stats_v2', JSON.stringify(schoolStats));
-  }, [schoolStats]);
-
-  useEffect(() => {
-    localStorage.setItem('school_contact_v2', JSON.stringify(schoolContact));
-  }, [schoolContact]);
-
-  useEffect(() => {
-    localStorage.setItem('school_content_v2', JSON.stringify(schoolContent));
-  }, [schoolContent]);
-
-  useEffect(() => {
-    localStorage.setItem('school_faculty_v2', JSON.stringify(faculty));
-  }, [faculty]);
-
-  useEffect(() => {
-    localStorage.setItem('school_gallery_v2', JSON.stringify(gallery));
-  }, [gallery]);
-
-  useEffect(() => {
-    localStorage.setItem('school_sponsors_v2', JSON.stringify(sponsors));
-  }, [sponsors]);
-
   // Methods
-  const addDonation = async (donation) => {
-    try {
-      const response = await api.post('/donations', donation);
-      const newDon = response.data;
-      setDonations(prev => [newDon, ...prev]);
-      return newDon;
-    } catch (err) {
-      const localDon = {
-        id: `don-${Date.now()}`,
-        date: new Date().toISOString().split('T')[0],
-        ...donation
-      };
-      setDonations(prev => [localDon, ...prev]);
-      return localDon;
-    }
-  };
-
-  const deleteDonation = async (id) => {
-    try {
-      await api.delete(`/donations/${id}`);
-    } catch (err) {
-      console.warn('DB delete error, removing locally.');
-    }
-    setDonations(prev => prev.filter(d => d.id !== id));
-  };
-
   const addAnnouncement = async (ann) => {
     try {
       const response = await api.post('/announcements', ann);
@@ -240,15 +222,6 @@ export const SchoolDataProvider = ({ children }) => {
       console.warn('DB delete error, removing locally.');
     }
     setAnnouncements(prev => prev.filter(a => a.id !== id));
-  };
-
-  const updateSchoolStats = async (stats) => {
-    try {
-      await api.post('/stats', stats);
-    } catch (err) {
-      console.warn('DB update error, setting locally.');
-    }
-    setSchoolStats(prev => ({ ...prev, ...stats }));
   };
 
   const updateSchoolContact = (contact) => {
@@ -302,6 +275,31 @@ export const SchoolDataProvider = ({ children }) => {
     setSponsors(prev => prev.filter(s => s.id !== id));
   };
 
+  const addCampusLifeItem = async (item) => {
+    try {
+      const response = await api.post('/campus-life', item);
+      const newItem = response.data;
+      setCampusLife(prev => [newItem, ...prev]);
+      return newItem;
+    } catch (err) {
+      const localItem = {
+        id: `cl-${Date.now()}`,
+        ...item
+      };
+      setCampusLife(prev => [localItem, ...prev]);
+      return localItem;
+    }
+  };
+
+  const deleteCampusLifeItem = async (id) => {
+    try {
+      await api.delete(`/campus-life/${id}`);
+    } catch (err) {
+      console.warn('DB delete error, removing locally.');
+    }
+    setCampusLife(prev => prev.filter(c => c.id !== id));
+  };
+
   const addFaculty = (fac) => {
     const newFac = {
       id: `fac-${Date.now()}`,
@@ -314,30 +312,49 @@ export const SchoolDataProvider = ({ children }) => {
     setFaculty(prev => prev.filter(f => f.id !== id));
   };
 
+  useEffect(() => {
+    localStorage.setItem('school_contact_v2', JSON.stringify(schoolContact));
+  }, [schoolContact]);
+
+  useEffect(() => {
+    localStorage.setItem('school_content_v2', JSON.stringify(schoolContent));
+  }, [schoolContent]);
+
+  useEffect(() => {
+    localStorage.setItem('school_faculty_v2', JSON.stringify(faculty));
+  }, [faculty]);
+
+  useEffect(() => {
+    localStorage.setItem('school_gallery_v2', JSON.stringify(gallery));
+  }, [gallery]);
+
+  useEffect(() => {
+    localStorage.setItem('school_sponsors_v2', JSON.stringify(sponsors));
+  }, [sponsors]);
+
+  useEffect(() => {
+    localStorage.setItem('school_campus_life_v2', JSON.stringify(campusLife));
+  }, [campusLife]);
+
   return (
     <SchoolDataContext.Provider value={{
       announcements,
-      donations,
-      schoolStats,
       schoolContact,
       schoolContent,
       faculty,
       gallery,
       sponsors,
-      donationGoal,
-      totalRaised,
-      totalDonationsCount,
+      campusLife,
       isDbOffline,
       loading,
-      addDonation,
-      deleteDonation,
       addAnnouncement,
       deleteAnnouncement,
-      updateSchoolStats,
       updateSchoolContact,
       updateSchoolContent,
       addGalleryItem,
       deleteGalleryItem,
+      addCampusLifeItem,
+      deleteCampusLifeItem,
       addSponsor,
       deleteSponsor,
       addFaculty,
