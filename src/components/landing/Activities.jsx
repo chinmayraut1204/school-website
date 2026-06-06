@@ -77,7 +77,7 @@ const Activities = () => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
             Explore School Activities
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto mb-6 rounded-full" />
+          <div className="h-1 w-20 bg-[#1b1a55] dark:bg-indigo-500 mx-auto mb-6 rounded-full" />
           <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             Beyond text books, we nurture our students with practical labs, athletic fields, and art studios to unlock their full potential.
           </p>

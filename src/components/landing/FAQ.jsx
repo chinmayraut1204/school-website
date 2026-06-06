@@ -15,14 +15,6 @@ const faqData = [
   {
     question: 'Can I sponsor a specific student\'s education or scholarship?',
     answer: 'Absolutely! Our "Girls & Merit Scholarships" program allows you to sponsor the full-year costs (uniforms, textbooks, and tutorial support) of targeted high-performing or underprivileged students for ₹5,000 annually. You will receive quarterly academic progress sheets of your sponsored student.'
-  },
-  {
-    question: 'Can I donate physical items like computer monitors, tables, or schoolbooks?',
-    answer: 'Yes, we gladly welcome high-quality physical donations such as working keyboards, tablets, library books, science apparatus, or laboratory desks. Please fill out our contact form or call the school principal office directly to schedule a delivery.'
-  },
-  {
-    question: 'Is there a minimum or maximum limit for online contributions?',
-    answer: 'There are no limits! You can contribute as little as ₹10 to help buy midday nutrition, or sponsor major infrastructure projects. Every rupee counts toward providing a secure, modernized education for rural children.'
   }
 ];
 
@@ -47,7 +39,7 @@ const FAQ = () => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto mb-6 rounded-full" />
+          <div className="h-1 w-20 bg-[#1b1a55] dark:bg-indigo-500 mx-auto mb-6 rounded-full" />
           <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             Have questions about tax certificates, donation routing, or volunteering? Browse our common answers below or get in touch.
           </p>

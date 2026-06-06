@@ -5,6 +5,7 @@ import GlassCard from '../common/GlassCard';
 import Button from '../common/Button';
 import { useToast } from '../../context/ToastContext';
 import { useSchoolData } from '../../context/SchoolDataContext';
+import api from '../../utils/api';
 
 const Contact = () => {
   const { showToast } = useToast();
@@ -15,7 +16,7 @@ const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !msg.trim()) {
       showToast('Please fill out all the fields.', 'error');
@@ -24,20 +25,44 @@ const Contact = () => {
 
     setSubmitting(true);
 
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      await api.post('/contact', { name, email, msg });
       setSuccess(true);
       showToast('Message sent successfully! Our administrative office will email you soon.', 'success');
       setName('');
       setEmail('');
       setMsg('');
-    }, 1500);
+    } catch (err) {
+      console.error('Email send error:', err);
+      const status = err.response?.status;
+      
+      if (status === 501 || !err.response) {
+        // Fallback: SMTP credentials not set on server or server offline
+        showToast('Server SMTP not configured. Redirecting to your mail client...', 'warning');
+        setTimeout(() => {
+          const subject = encodeURIComponent(`Inquiry from ${name}`);
+          const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+          window.location.href = `mailto:${schoolContact.email}?subject=${subject}&body=${body}`;
+          
+          setSuccess(true);
+          setName('');
+          setEmail('');
+          setMsg('');
+          setSubmitting(false);
+        }, 1200);
+        return;
+      } else {
+        const errMsg = err.response?.data?.error || 'Failed to send inquiry email. Please check server configuration.';
+        showToast(errMsg, 'error');
+      }
+    }
+    setSubmitting(false);
   };
 
   return (
     <section 
       id="contact" 
-      className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden"
+      className="pt-10 pb-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -48,7 +73,7 @@ const Contact = () => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
             Contact Our Administrative Office
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto mb-6 rounded-full" />
+          <div className="h-1 w-20 bg-[#1b1a55] dark:bg-indigo-500 mx-auto mb-6 rounded-full" />
           <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             Have questions about physical donation drops, custom sponsorships, CSR partnerships, or student enrollment? Send us an inquiry.
           </p>

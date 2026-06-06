@@ -41,19 +41,19 @@ const SponsorsPage = () => {
       <Navbar />
 
       {/* Hero Header */}
-      <section className="relative pt-36 pb-20 bg-slate-900 text-white overflow-hidden">
+      <section className="relative pt-28 pb-10 bg-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] bg-indigo-500/10 rounded-full blur-[100px]" />
           <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-emerald-500/10 rounded-full blur-[120px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-6">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">CSR Partnerships</span>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white max-w-4xl mx-auto leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white max-w-4xl mx-auto leading-tight">
             Our Partners & Sponsors
           </h1>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto rounded-full" />
-          <p className="text-slate-350 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+          <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto rounded-full" />
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
             Corporate Social Responsibility (CSR) collaborators powering Eklavya Ashramschool digital models.
           </p>
         </div>

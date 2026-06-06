@@ -6,7 +6,12 @@ import {
   Image as ImageIcon, 
   Home, 
   LogOut,
-  Award
+  Award,
+  GraduationCap,
+  ClipboardList,
+  Building,
+  Users,
+  Calendar
 } from 'lucide-react';
 
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
@@ -14,8 +19,13 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
     { id: 'content', name: 'School Content', icon: <FileText className="w-5 h-5" /> },
     { id: 'announcements', name: 'Announcements', icon: <Megaphone className="w-5 h-5" /> },
+    { id: 'needs', name: 'School Needs', icon: <ClipboardList className="w-5 h-5" /> },
     { id: 'gallery', name: 'Gallery Manager', icon: <ImageIcon className="w-5 h-5" /> },
     { id: 'campus-life', name: 'Sponsors', icon: <Award className="w-5 h-5" /> },
+    { id: 'infrastructure', name: 'Infrastructure', icon: <Building className="w-5 h-5" /> },
+    { id: 'results', name: 'Results Manager', icon: <GraduationCap className="w-5 h-5" /> },
+    { id: 'staff', name: 'Staff Manager', icon: <Users className="w-5 h-5" /> },
+    { id: 'student-counts', name: 'Student Data', icon: <Calendar className="w-5 h-5" /> },
   ];
 
   return (

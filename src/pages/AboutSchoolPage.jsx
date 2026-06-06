@@ -9,7 +9,7 @@ import ScrollToTop from '../components/common/ScrollToTop';
 import { Landmark, Compass, Award, Calendar, Layers, ShieldCheck } from 'lucide-react';
 
 const AboutSchoolPage = () => {
-  const { schoolContent, schoolContact } = useSchoolData();
+  const { schoolContent, schoolContact, infrastructure } = useSchoolData();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -33,7 +33,7 @@ const AboutSchoolPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-36 pb-20 bg-slate-900 text-white overflow-hidden">
+      <section className="relative pt-28 pb-10 bg-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-indigo-500/10 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-[45vw] h-[45vw] bg-emerald-500/10 rounded-full blur-[140px]" />
@@ -44,13 +44,13 @@ const AboutSchoolPage = () => {
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-6">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Institutional Profile</span>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white max-w-4xl mx-auto leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white max-w-4xl mx-auto leading-tight">
             About Our School
           </h1>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto rounded-full" />
-          <p className="text-slate-350 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+          <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-emerald-500 mx-auto rounded-full" />
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
             Discover the legacy, mission, and learning infrastructure of Eklavya Ashramschool Hiradpada.
           </p>
         </div>
@@ -140,48 +140,26 @@ const AboutSchoolPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <GlassCard className="p-6 text-left space-y-4">
-              <div className="h-44 w-full rounded-2xl overflow-hidden relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=400&q=80" 
-                  alt="Computer Lab" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h4 className="font-extrabold text-slate-800 dark:text-white text-base">Computer & ICT Lab</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">Equipped with desktop computer modules, power backup systems, and internet to provide coding, typing, and analytical tools.</p>
-            </GlassCard>
-
-            <GlassCard className="p-6 text-left space-y-4">
-              <div className="h-44 w-full rounded-2xl overflow-hidden relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=400&q=80" 
-                  alt="Science Lab" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h4 className="font-extrabold text-slate-800 dark:text-white text-base">Modern Science Labs</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">Practical setup for Chemistry, Physics, and Biology experiments, promoting experiential learning and discovery.</p>
-            </GlassCard>
-
-            <GlassCard className="p-6 text-left space-y-4">
-              <div className="h-44 w-full rounded-2xl overflow-hidden relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=400&q=80" 
-                  alt="Smart Classrooms" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h4 className="font-extrabold text-slate-800 dark:text-white text-base">Digital Smart Classrooms</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">Equipped with digital projectors, audio setups, and visual learning libraries to make education interactive and fun.</p>
-            </GlassCard>
+            {(infrastructure || []).map((infra) => (
+              <GlassCard key={infra.id} className="p-6 text-left space-y-4">
+                <div className="h-44 w-full rounded-2xl overflow-hidden relative">
+                  <img 
+                    src={infra.url} 
+                    alt={infra.title} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h4 className="font-extrabold text-slate-800 dark:text-white text-base">{infra.title}</h4>
+                <p className="text-xs text-slate-500 leading-relaxed">{infra.description}</p>
+              </GlassCard>
+            ))}
           </div>
         </section>
 
         {/* History Timeline */}
         <section className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Our Historic Journey</h3>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Permissions</h3>
             <p className="text-slate-500 text-xs sm:text-sm">Key milestones of our residential academy</p>
           </div>
 

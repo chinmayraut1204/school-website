@@ -9,8 +9,12 @@ const AdminNavbar = ({ activeTab, setSidebarOpen, sidebarOpen }) => {
     switch (activeTab) {
       case 'content': return 'Content Management';
       case 'announcements': return 'Announcement Board';
+      case 'needs': return 'School Needs Manager';
       case 'gallery': return 'Gallery Media Manager';
       case 'campus-life': return 'Sponsors';
+      case 'infrastructure': return 'Campus Infrastructure';
+      case 'staff': return 'Staff Manager';
+      case 'student-counts': return 'Student Data Manager';
       default: return 'Admin Desk';
     }
   };

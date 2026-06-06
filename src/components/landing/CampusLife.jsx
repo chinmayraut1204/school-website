@@ -98,7 +98,7 @@ const CampusLife = () => {
   return (
     <section 
       id="campus-life" 
-      className="pt-8 pb-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden"
+      className="pt-8 pb-10 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden"
     >
       {/* Background blur blobs */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -116,7 +116,7 @@ const CampusLife = () => {
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-4">
               Sponsors
             </h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-emerald-500 mb-6 rounded-full" />
+            <div className="h-1 w-20 bg-[#1b1a55] dark:bg-indigo-500 mb-6 rounded-full" />
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               We are deeply grateful to our sponsors and partners who support our mission and help provide residential care and quality education to our tribal students.
             </p>

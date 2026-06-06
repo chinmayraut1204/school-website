@@ -10,6 +10,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [admissionDropdownOpen, setAdmissionDropdownOpen] = useState(false);
+  const [staffDropdownOpen, setStaffDropdownOpen] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,6 +35,8 @@ const Navbar = () => {
   const handleNavClick = (href, e) => {
     setIsOpen(false);
     setAboutDropdownOpen(false);
+    setAdmissionDropdownOpen(false);
+    setStaffDropdownOpen(false);
 
     if (href.startsWith('/')) {
       // It is a React Router route path
@@ -58,8 +62,15 @@ const Navbar = () => {
 
   const isAboutActive = 
     location.pathname === '/about-school' || 
-    location.pathname === '/about-founder' || 
-    location.pathname === '/about-principal';
+    location.pathname === '/about-founder';
+
+  const isStaffActive = 
+    location.pathname === '/primary-staff' || 
+    location.pathname === '/secondary-staff';
+
+  const isAdmissionActive = 
+    location.pathname === '/admission-details' || 
+    location.pathname === '/admission';
 
   const isActive = (href) => {
     if (href.startsWith('/')) {
@@ -101,7 +112,9 @@ const Navbar = () => {
 
           {/* Middle: Centered Names in Marathi and English */}
           <div className="flex flex-col text-center justify-center items-center flex-1 max-w-3xl px-2">
-            <h1 className="text-base sm:text-lg lg:text-xl font-extrabold text-indigo-905 dark:text-indigo-400 tracking-wide leading-tight">
+             <p className="text-xs sm:text-sm text-black dark:text-slate-350 font-bold mt-1.5 mb-3 uppercase tracking-wide">
+                Shri Gagangiri Adivasi Shikshan Prasarak Sanstha Jamsar             </p>
+            <h1 className="text-base sm:text-lg lg:text-xl font-extrabold text-black dark:text-white tracking-wide leading-tight">
               एकलव्य प्राथमिक, माध्यमिक आश्रमशाळा आणि कनिष्ठ महाविद्यालय हिरडपाडा
             </h1>
             <h2 className="text-xs sm:text-sm lg:text-base font-bold text-slate-700 dark:text-slate-200 mt-1.5 leading-snug">
@@ -115,10 +128,17 @@ const Navbar = () => {
             </p>
           </div>
 
-          {/* Right: Social Icons & Tiers */}
-          <div className="flex flex-col items-center md:items-end justify-center gap-2.5 flex-shrink-0">
+          {/* Right: Social Icons at bottom-right */}
+          <div className="flex flex-col items-center md:items-end justify-end self-stretch flex-shrink-0">
+            {/* School registration details */}
+            <div className="flex flex-col text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-bold text-center md:text-right gap-0.5 mt-auto mb-2 tracking-wide uppercase">
+              <span>S.S.C Index No. S18.04.025</span>
+              <span>H.S.C Index No. J18.04.010</span>
+              <span>Primary UDICE No. 27360402903</span>
+              <span>Secondary UDICE No. 27360402904</span>
+            </div>
             {/* Social Media Link Icons */}
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 justify-center md:justify-end">
               {/* Facebook */}
               <a 
                 href="https://facebook.com" 
@@ -155,8 +175,19 @@ const Navbar = () => {
                   <path d="M23.498 6.163c-.274-1.03-.808-1.838-1.838-2.113C19.78 3.5 12 3.5 12 3.5s-7.78 0-9.66.54c-1.03.275-1.838 1.083-2.113 2.113C.0 8.04.0 12 .0 12s0 3.96.227 5.837c.275 1.03 1.083 1.838 2.113 2.113C4.22 20.5 12 20.5 12 20.5s7.78 0 9.66-.54c1.03-.275 1.838-1.083 2.113-2.113C24 15.96 24 12 24 12s0-3.96-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
+              {/* WhatsApp */}
+              <a 
+                href="https://wa.me/919545292231" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-600 flex items-center justify-center transition-colors dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
+                aria-label="WhatsApp"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.454L0 24zm6.59-4.846c1.66.986 3.288 1.486 4.908 1.486 5.489 0 9.954-4.466 9.957-9.959.002-2.661-1.034-5.159-2.918-7.046C16.71 1.748 14.215 1.71 11.56 1.71c-5.492 0-9.957 4.463-9.959 9.953-.001 1.758.485 3.413 1.42 4.91l-.994 3.633 3.73-.978-.17-.1zM17.487 14.39c-.3-.15-1.774-.875-2.049-.976-.275-.1-.475-.15-.675.15-.2.3-.775.976-.95 1.176-.175.2-.35.225-.65.075-.3-.15-1.267-.467-2.413-1.49-1-.892-1.675-1.993-1.875-2.343-.2-.35-.02-.54.16-.69.162-.135.35-.41.525-.615.175-.2.233-.35.35-.575.117-.225.058-.425-.03-.575-.088-.15-.675-1.625-.925-2.225-.244-.588-.491-.508-.675-.518-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.11 3.22 5.11 4.52 1.433.62 2.244.75 3.037.67.875-.13 1.774-.725 2.024-1.393.25-.668.25-1.238.175-1.392-.075-.15-.275-.225-.575-.375z"/>
+                </svg>
+              </a>
             </div>
-            {/* Subline badges */}
           </div>
 
         </div>
@@ -254,15 +285,57 @@ const Navbar = () => {
                     >
                       About Founder
                     </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Staff Dropdown Trigger */}
+            <div 
+              className="relative group/staff"
+              onMouseEnter={() => setStaffDropdownOpen(true)}
+              onMouseLeave={() => setStaffDropdownOpen(false)}
+            >
+              <button
+                className={`text-xs font-bold uppercase tracking-wider transition-colors relative py-2 flex items-center gap-1 focus:outline-none ${
+                  isStaffActive
+                    ? 'text-indigo-350 dark:text-indigo-400'
+                    : 'text-slate-200 hover:text-indigo-350 dark:hover:text-indigo-400'
+                }`}
+              >
+                <span>Staff</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover/staff:rotate-180 transition-transform duration-300" />
+              </button>
+
+              {/* Staff Dropdown Menu */}
+              <AnimatePresence>
+                {staffDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-1 w-48 rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl py-2 z-55 text-left text-slate-800 dark:text-slate-200"
+                  >
                     <Link
-                      to="/about-principal"
+                      to="/primary-staff"
                       className={`block px-4 py-2.5 text-xs font-semibold transition-colors ${
-                        location.pathname === '/about-principal'
+                        location.pathname === '/primary-staff'
                           ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-slate-850/50'
                           : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-850 hover:text-indigo-600'
                       }`}
                     >
-                      About Principal
+                      Primary Staff
+                    </Link>
+                    <Link
+                      to="/secondary-staff"
+                      className={`block px-4 py-2.5 text-xs font-semibold transition-colors ${
+                        location.pathname === '/secondary-staff'
+                          ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-slate-850/50'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-850 hover:text-indigo-600'
+                      }`}
+                    >
+                      Secondary Staff
                     </Link>
                   </motion.div>
                 )}
@@ -271,22 +344,75 @@ const Navbar = () => {
 
             {/* Other Navbar Routes */}
             {[
-              { name: 'Faculty', path: '/faculty' },
               { name: 'Activities', path: '/activities' },
-              { name: 'Sponsors', path: '/sponsors' }
+              { name: 'Students', path: '/students' },
+              { name: 'Sponsors', path: '/sponsors' },
+              { name: 'Results', path: '/results' }
             ].map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 className={`text-xs font-bold uppercase tracking-wider transition-colors relative py-2 ${
                   isActive(link.path)
-                    ? 'text-indigo-350 dark:text-indigo-400'
-                    : 'text-slate-200 hover:text-indigo-350 dark:hover:text-indigo-400'
+                    ? 'text-indigo-355 dark:text-indigo-400'
+                    : 'text-slate-200 hover:text-indigo-355 dark:hover:text-indigo-400'
                 }`}
               >
                 {link.name}
               </Link>
             ))}
+
+            {/* Admission Dropdown Trigger */}
+            <div 
+              className="relative group/admission"
+              onMouseEnter={() => setAdmissionDropdownOpen(true)}
+              onMouseLeave={() => setAdmissionDropdownOpen(false)}
+            >
+              <button
+                className={`text-xs font-bold uppercase tracking-wider transition-colors relative py-2 flex items-center gap-1 focus:outline-none ${
+                  isAdmissionActive
+                    ? 'text-indigo-355 dark:text-indigo-400'
+                    : 'text-slate-200 hover:text-indigo-355 dark:hover:text-indigo-400'
+                }`}
+              >
+                <span>Admission</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover/admission:rotate-180 transition-transform duration-300" />
+              </button>
+
+              {/* Admission Dropdown Menu */}
+              <AnimatePresence>
+                {admissionDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-1 w-48 rounded-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl py-2 z-55 text-left text-slate-800 dark:text-slate-200"
+                  >
+                    <Link
+                      to="/admission-details"
+                      className={`block px-4 py-2.5 text-xs font-semibold transition-colors ${
+                        location.pathname === '/admission-details'
+                          ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-slate-850/50'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-850 hover:text-indigo-600'
+                      }`}
+                    >
+                      Admission Details
+                    </Link>
+                    <Link
+                      to="/admission"
+                      className={`block px-4 py-2.5 text-xs font-semibold transition-colors ${
+                        location.pathname === '/admission'
+                          ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-slate-850/50'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-850 hover:text-indigo-600'
+                      }`}
+                    >
+                      Admission Form
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Contact scroll anchor link */}
             <a
@@ -382,7 +508,7 @@ const Navbar = () => {
                   to="/about-school"
                   onClick={() => setIsOpen(false)}
                   className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
-                    location.pathname === '/about-school' ? 'text-indigo-600' : 'text-slate-600 dark:text-slate-350'
+                    location.pathname === '/about-school' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
                   }`}
                 >
                   About School
@@ -391,27 +517,65 @@ const Navbar = () => {
                   to="/about-founder"
                   onClick={() => setIsOpen(false)}
                   className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
-                    location.pathname === '/about-founder' ? 'text-indigo-600' : 'text-slate-600 dark:text-slate-350'
+                    location.pathname === '/about-founder' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
                   }`}
                 >
                   About Founder
                 </Link>
+              </div>
+
+              {/* Mobile Admission Submenu */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs uppercase font-extrabold tracking-widest text-slate-400 block pt-1 pl-1">Admission</span>
                 <Link
-                  to="/about-principal"
+                  to="/admission-details"
                   onClick={() => setIsOpen(false)}
                   className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
-                    location.pathname === '/about-principal' ? 'text-indigo-600' : 'text-slate-600 dark:text-slate-350'
+                    location.pathname === '/admission-details' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
                   }`}
                 >
-                  About Principal
+                  Admission Details
+                </Link>
+                <Link
+                  to="/admission"
+                  onClick={() => setIsOpen(false)}
+                  className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
+                    location.pathname === '/admission' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
+                  }`}
+                >
+                  Admission Form
+                </Link>
+              </div>
+
+              {/* Mobile Staff Submenu */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs uppercase font-extrabold tracking-widest text-slate-400 block pt-1 pl-1">Staff</span>
+                <Link
+                  to="/primary-staff"
+                  onClick={() => setIsOpen(false)}
+                  className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
+                    location.pathname === '/primary-staff' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
+                  }`}
+                >
+                  Primary Staff
+                </Link>
+                <Link
+                  to="/secondary-staff"
+                  onClick={() => setIsOpen(false)}
+                  className={`text-sm font-semibold pl-4 py-1.5 transition-colors ${
+                    location.pathname === '/secondary-staff' ? 'text-indigo-600' : 'text-slate-650 dark:text-slate-350'
+                  }`}
+                >
+                  Secondary Staff
                 </Link>
               </div>
 
               {/* Mobile other routes */}
               {[
-                { name: 'Faculty', path: '/faculty' },
                 { name: 'Activities', path: '/activities' },
-                { name: 'Sponsors', path: '/sponsors' }
+                { name: 'Students', path: '/students' },
+                { name: 'Sponsors', path: '/sponsors' },
+                { name: 'Results', path: '/results' }
               ].map((link) => (
                 <Link
                   key={link.name}

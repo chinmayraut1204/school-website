@@ -11,21 +11,27 @@ const AnnouncementsTab = () => {
   const [text, setText] = useState('');
   const [type, setType] = useState('info');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) {
       showToast('Announcement content cannot be empty.', 'error');
       return;
     }
 
-    addAnnouncement({
-      text: text.trim(),
-      type
-    });
+    try {
+      await addAnnouncement({
+        text: text.trim(),
+        type
+      });
 
-    showToast('New announcement published successfully!', 'success');
-    setText('');
-    setType('info');
+      showToast('New announcement published successfully!', 'success');
+      setText('');
+      setType('info');
+    } catch (err) {
+      console.error(err);
+      const errMsg = err.response?.data?.error || err.message || 'Failed to save to database.';
+      showToast(`Publishing failed: ${errMsg}`, 'error');
+    }
   };
 
   return (
@@ -115,9 +121,15 @@ const AnnouncementsTab = () => {
               </div>
 
               <button
-                onClick={() => {
-                  deleteAnnouncement(ann.id);
-                  showToast('Announcement notice deleted.', 'info');
+                onClick={async () => {
+                  try {
+                    await deleteAnnouncement(ann.id);
+                    showToast('Announcement notice deleted.', 'info');
+                  } catch (err) {
+                    console.error(err);
+                    const errMsg = err.response?.data?.error || err.message || 'Failed to delete from database.';
+                    showToast(`Deletion failed: ${errMsg}`, 'error');
+                  }
                 }}
                 className="p-1.5 rounded-lg text-slate-400 hover:bg-rose-500/10 hover:text-rose-500 transition-colors flex-shrink-0"
                 title="Delete Notice"

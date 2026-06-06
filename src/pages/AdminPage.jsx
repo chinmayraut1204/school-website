@@ -3,8 +3,13 @@ import AdminSidebar from '../components/admin/AdminSidebar';
 import AdminNavbar from '../components/admin/AdminNavbar';
 import ContentTab from '../components/admin/ContentTab';
 import AnnouncementsTab from '../components/admin/AnnouncementsTab';
+import NeedsTab from '../components/admin/NeedsTab';
 import GalleryTab from '../components/admin/GalleryTab';
 import CampusLifeTab from '../components/admin/CampusLifeTab';
+import ResultsTab from '../components/admin/ResultsTab';
+import InfrastructureTab from '../components/admin/InfrastructureTab';
+import StaffTab from '../components/admin/StaffTab';
+import StudentCountsTab from '../components/admin/StudentCountsTab';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminPage = () => {
@@ -18,10 +23,20 @@ const AdminPage = () => {
 
       case 'announcements':
         return <AnnouncementsTab />;
+      case 'needs':
+        return <NeedsTab />;
       case 'gallery':
         return <GalleryTab />;
       case 'campus-life':
         return <CampusLifeTab />;
+      case 'infrastructure':
+        return <InfrastructureTab />;
+      case 'results':
+        return <ResultsTab />;
+      case 'staff':
+        return <StaffTab />;
+      case 'student-counts':
+        return <StudentCountsTab />;
 
       default:
         return <ContentTab />;

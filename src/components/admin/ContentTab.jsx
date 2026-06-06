@@ -12,14 +12,20 @@ const ContentTab = () => {
   const [mission, setMission] = useState(schoolContent.mission);
   const [vision, setVision] = useState(schoolContent.vision);
 
-  const handleSaveText = (e) => {
+  const handleSaveText = async (e) => {
     e.preventDefault();
-    updateSchoolContent({
-      about,
-      mission,
-      vision
-    });
-    showToast('School descriptions updated successfully!', 'success');
+    try {
+      await updateSchoolContent({
+        about,
+        mission,
+        vision
+      });
+      showToast('School descriptions updated successfully!', 'success');
+    } catch (err) {
+      console.error(err);
+      const errMsg = err.response?.data?.error || err.message || 'Failed to save to database.';
+      showToast(`Update failed: ${errMsg}`, 'error');
+    }
   };
 
   return (

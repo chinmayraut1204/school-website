@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useSchoolData } from '../../context/SchoolDataContext';
 import { useToast } from '../../context/ToastContext';
-import { Trash2, Plus, Image as ImageIcon, X, ZoomIn, FileText } from 'lucide-react';
+import { Trash2, Plus, Image as ImageIcon, X, ZoomIn } from 'lucide-react';
 import Button from '../common/Button';
 
-const CampusLifeTab = () => {
-  const { campusLife, addCampusLifeItem, deleteCampusLifeItem } = useSchoolData();
+const InfrastructureTab = () => {
+  const { infrastructure, addInfrastructureItem, deleteInfrastructureItem } = useSchoolData();
   const { showToast } = useToast();
 
   const [title, setTitle] = useState('');
@@ -59,13 +59,13 @@ const CampusLifeTab = () => {
     }
 
     try {
-      await addCampusLifeItem({
+      await addInfrastructureItem({
         title: title.trim(),
         description: description.trim(),
         url: url.trim()
       });
 
-      showToast('New activity card added to campus life successfully!', 'success');
+      showToast('New infrastructure card added successfully!', 'success');
       setTitle('');
       setDescription('');
       setUrl('');
@@ -86,16 +86,16 @@ const CampusLifeTab = () => {
       <div className="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 p-6 rounded-3xl h-fit">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-6 uppercase tracking-wider flex items-center gap-2">
           <ImageIcon className="w-4 h-4 text-indigo-500" />
-          Add Campus Life Card
+          Add Infrastructure Card
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Slide Title</label>
+            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Facility Name</label>
             <input 
               type="text"
               required
-              placeholder="e.g. Science Exhibition 2026"
+              placeholder="e.g. Computer & ICT Lab"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none"
@@ -106,7 +106,7 @@ const CampusLifeTab = () => {
             <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Short Description</label>
             <textarea 
               rows="3"
-              placeholder="e.g. Students demonstrating robotics projects to guests."
+              placeholder="e.g. Equipped with desktop computer modules, power backup systems, and internet..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none resize-none leading-relaxed"
@@ -185,7 +185,7 @@ const CampusLifeTab = () => {
             className="w-full font-bold"
             disabled={isReadingFile}
           >
-            {isReadingFile ? 'Reading Image file...' : 'Save Activity Slide'}
+            {isReadingFile ? 'Reading Image file...' : 'Save Facility Card'}
           </Button>
         </form>
       </div>
@@ -193,62 +193,58 @@ const CampusLifeTab = () => {
       {/* Directory listing */}
       <div className="lg:col-span-7 space-y-4">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-          Active Campus Activities ({campusLife.length} Items)
+          Active Infrastructure Facilities ({infrastructure?.length || 0} Items)
         </h3>
 
-        {campusLife.length === 0 ? (
+        {!infrastructure || infrastructure.length === 0 ? (
           <div className="text-center py-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/60 rounded-3xl text-slate-400 text-xs font-semibold">
-            No sponsors configured. Seed defaults will display.
+            No campus infrastructure items configured in database.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {campusLife.map(item => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {infrastructure.map((item) => (
               <div 
                 key={item.id}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between group"
+                className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between"
               >
-                <div className="flex items-start gap-3 p-4 text-left">
-                  {/* Visual Thumbnail */}
-                  <div 
-                    onClick={() => setActiveImage(item)}
-                    className="w-16 h-16 overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-950 cursor-zoom-in relative rounded-xl border border-slate-200/50 dark:border-slate-850"
-                    title="Click to view image"
-                  >
-                    <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                {/* Photo Header */}
+                <div className="relative h-36 w-full overflow-hidden bg-slate-100 dark:bg-slate-950 group">
+                  <img src={item.url} alt={item.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button 
+                      onClick={() => setActiveImage(item)}
+                      className="p-2 bg-white/20 hover:bg-white/45 backdrop-blur-md rounded-full text-white transition-all cursor-pointer border-none"
+                    >
                       <ZoomIn className="w-4 h-4" />
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="text-xs font-bold text-slate-850 dark:text-slate-100 line-clamp-1" title={item.title}>
-                      {item.title}
-                    </h4>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-500 line-clamp-2 mt-1 leading-relaxed">
-                      {item.description || 'No description provided.'}
-                    </p>
+                    </button>
                   </div>
                 </div>
 
-                <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-850 flex justify-end">
-                  <button
-                    onClick={async () => {
-                      if (confirm(`Delete slide card "${item.title}"?`)) {
+                {/* Body Details */}
+                <div className="p-5 flex-grow flex flex-col justify-between text-left">
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-800 dark:text-white line-clamp-1 mb-1">{item.title}</h4>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3 mb-4">{item.description}</p>
+                  </div>
+
+                  <div className="flex justify-end pt-3 border-t border-slate-100 dark:border-slate-850">
+                    <button
+                      onClick={async () => {
                         try {
-                          await deleteCampusLifeItem(item.id);
-                          showToast('Slide card removed successfully.', 'info');
+                          await deleteInfrastructureItem(item.id);
+                          showToast('Infrastructure facility deleted successfully.', 'info');
                         } catch (err) {
                           console.error(err);
                           const errMsg = err.response?.data?.error || err.message || 'Failed to delete from database.';
                           showToast(`Deletion failed: ${errMsg}`, 'error');
                         }
-                      }
-                    }}
-                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-all rounded-lg flex items-center gap-1.5 text-[10px] font-bold"
-                    title="Delete Slide"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    Delete Slide
-                  </button>
+                      }}
+                      className="text-xs font-bold text-rose-500 hover:bg-rose-500/10 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 cursor-pointer border-none bg-transparent"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Delete Card
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -256,38 +252,30 @@ const CampusLifeTab = () => {
         )}
       </div>
 
-      {/* Admin Lightbox Overlay */}
+      {/* Lightbox Preview Modal */}
       {activeImage && (
         <div 
-          className="fixed inset-0 z-[9999] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-10 select-none cursor-zoom-out animate-fade-in"
+          className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 select-none animate-fade-in"
           onClick={() => setActiveImage(null)}
         >
-          {/* Close button */}
-          <button 
-            onClick={() => setActiveImage(null)}
-            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors focus:outline-none"
-            aria-label="Close Preview"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          {/* Image & Caption Box */}
           <div 
-            className="relative max-w-4xl w-full flex flex-col items-center gap-4 cursor-default"
+            className="relative max-w-3xl w-full flex flex-col items-center gap-4"
             onClick={(e) => e.stopPropagation()}
           >
+            <button 
+              onClick={() => setActiveImage(null)}
+              className="absolute -top-12 right-0 p-2 text-white hover:text-slate-300 transition-colors border-none bg-transparent cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
             <img 
               src={activeImage.url} 
               alt={activeImage.title} 
-              className="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-2xl border border-white/10"
+              className="max-h-[80vh] rounded-2xl object-contain shadow-2xl" 
             />
-            <div className="text-center text-white max-w-xl">
-              <h3 className="text-sm sm:text-base font-bold mt-1">
-                {activeImage.title}
-              </h3>
-              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                {activeImage.description}
-              </p>
+            <div className="text-center text-white">
+              <h3 className="text-sm font-bold">{activeImage.title}</h3>
+              <p className="text-xs text-slate-400 mt-1 max-w-md">{activeImage.description}</p>
             </div>
           </div>
         </div>
@@ -296,4 +284,4 @@ const CampusLifeTab = () => {
   );
 };
 
-export default CampusLifeTab;
+export default InfrastructureTab;

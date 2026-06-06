@@ -4,8 +4,6 @@ import Hero from '../components/landing/Hero';
 import About from '../components/landing/About';
 import Gallery from '../components/landing/Gallery';
 import CampusLife from '../components/landing/CampusLife';
-import Testimonials from '../components/landing/Testimonials';
-import FAQ from '../components/landing/FAQ';
 import Contact from '../components/landing/Contact';
 import Footer from '../components/landing/Footer';
 import ThemeSwitcher from '../components/common/ThemeSwitcher';
@@ -23,8 +21,6 @@ const LandingPage = () => {
         <About />
         <Gallery />
         <CampusLife />
-        <Testimonials />
-        <FAQ />
         <Contact />
       </main>
 

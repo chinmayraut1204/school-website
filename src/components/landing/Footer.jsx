@@ -61,10 +61,12 @@ const Footer = () => {
             {[
               { name: 'About School', href: '/about-school' },
               { name: 'About Founder', href: '/about-founder' },
-              { name: 'About Principal', href: '/about-principal' },
-              { name: 'Faculty', href: '/faculty' },
+              { name: 'Primary Staff', href: '/primary-staff' },
+              { name: 'Secondary Staff', href: '/secondary-staff' },
               { name: 'Activities', href: '/activities' },
+              { name: 'Students', href: '/students' },
               { name: 'Sponsors', href: '/sponsors' },
+              { name: 'Admission', href: '/admission' },
               { name: 'Contact', href: '/#contact' }
             ].map((link) => (
               <li key={link.name}>

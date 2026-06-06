@@ -48,7 +48,7 @@ const GalleryTab = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (isReadingFile) {
@@ -65,20 +65,26 @@ const GalleryTab = () => {
       return;
     }
 
-    addGalleryItem({
-      title: title.trim(),
-      category,
-      url: url.trim()
-    });
+    try {
+      await addGalleryItem({
+        title: title.trim(),
+        category,
+        url: url.trim()
+      });
 
-    showToast('New campus image added to public gallery!', 'success');
-    setTitle('');
-    setUrl('');
-    setCategory('Classrooms');
-    
-    // Reset file input
-    const fileInput = document.querySelector('input[type="file"]');
-    if (fileInput) fileInput.value = '';
+      showToast('New campus image added to public gallery!', 'success');
+      setTitle('');
+      setUrl('');
+      setCategory('Classrooms');
+      
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) fileInput.value = '';
+    } catch (err) {
+      console.error(err);
+      const errMsg = err.response?.data?.error || err.message || 'Failed to save to database.';
+      showToast(`Upload failed: ${errMsg}`, 'error');
+    }
   };
 
   return (
@@ -253,10 +259,16 @@ const GalleryTab = () => {
                 </div>
 
                 <button
-                  onClick={() => {
+                  onClick={async () => {
                     if (confirm(`Delete image "${item.title}" from public gallery?`)) {
-                      deleteGalleryItem(item.id);
-                      showToast('Media image removed.', 'info');
+                      try {
+                        await deleteGalleryItem(item.id);
+                        showToast('Media image removed.', 'info');
+                      } catch (err) {
+                        console.error(err);
+                        const errMsg = err.response?.data?.error || err.message || 'Failed to delete from database.';
+                        showToast(`Deletion failed: ${errMsg}`, 'error');
+                      }
                     }
                   }}
                   className="p-3 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-colors mr-2 rounded-xl flex-shrink-0"
