@@ -176,7 +176,7 @@ const Hero = () => {
                       Connect via WhatsApp
                     </span>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                      +91 9545292231
+                      +91 9545292231 
                     </span>
                   </div>
                 </a>

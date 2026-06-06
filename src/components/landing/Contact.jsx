@@ -97,7 +97,7 @@ const Contact = () => {
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="e.g. Chinmay"
+                        placeholder="e.g. Name"
                         className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors"
                       />
                     </div>
@@ -201,7 +201,10 @@ const Contact = () => {
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">Phone Line</span>
                       <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
-                        +91 {schoolContact.phone} (9 AM - 4 PM)
+                        +91 {schoolContact.phone} / +91 8806766514
+                      </p>
+                      <p className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        +91 9503793535
                       </p>
                     </div>
                   </div>
