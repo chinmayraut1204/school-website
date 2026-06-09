@@ -12,7 +12,7 @@ const StaffTab = () => {
   const [role, setRole] = useState('');
   const [qualification, setQualification] = useState('');
   const [type, setType] = useState('primary'); // 'primary' or 'secondary'
-  const [category, setCategory] = useState('primary_school'); // 'primary_school' or 'ashramschool'
+  const [category, setCategory] = useState('principal'); // 'school_section' or 'ashramschool'
   const [url, setUrl] = useState('');
   const [uploadType, setUploadType] = useState('file'); // 'file' or 'url'
   const [isReadingFile, setIsReadingFile] = useState(false);
@@ -83,7 +83,7 @@ const StaffTab = () => {
       setRole('');
       setQualification('');
       setType('primary');
-      setCategory('primary_school');
+      setCategory('principal');
       setUrl('');
       
       const fileInput = document.querySelector('input[type="file"]');
@@ -160,8 +160,9 @@ const StaffTab = () => {
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none"
               >
-                <option value="primary_school">School Section</option>
-                <option value="ashramschool">Ashramschool Section</option>
+                <option value="principal">Principal</option>
+                <option value="school_section">School Section</option>
+                <option value="ashramschool">Hostel Section</option>
               </select>
             </div>
           </div>
@@ -276,11 +277,13 @@ const StaffTab = () => {
                       {member.type} Staff
                     </span>
                     <span className={`px-2 py-0.5 text-[8px] font-extrabold uppercase rounded-full border ${
-                      member.category === 'primary_school' 
-                        ? 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-255 dark:border-amber-900/40 text-amber-600 dark:text-amber-400' 
-                        : 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-250 dark:border-emerald-900/40 text-emerald-600 dark:text-emerald-400'
+                      member.category === 'principal' 
+                        ? 'bg-purple-50/50 dark:bg-purple-950/20 border-purple-250 dark:border-purple-900/40 text-purple-650 dark:text-purple-400'
+                        : member.category === 'school_section' 
+                          ? 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-255 dark:border-amber-900/40 text-amber-600 dark:text-amber-400' 
+                          : 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-250 dark:border-emerald-900/40 text-emerald-600 dark:text-emerald-400'
                     }`}>
-                      {member.category === 'primary_school' ? 'Primary Sec' : 'Ashramschool'}
+                      {member.category === 'principal' ? 'Principal' : member.category === 'school_section' ? 'School Sec' : 'Ashramschool'}
                     </span>
                   </div>
 

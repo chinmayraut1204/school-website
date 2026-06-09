@@ -286,7 +286,7 @@ const AdmissionPage = () => {
       },
       subjects: offeredSubjects[formData.branch],
       documents: {
-        ssc_marksheet: documents.ssc_marksheet.name,
+        ssc_marksheet: documents.ssc_marksheet.data,
         birth_certificate: null,
         leaving_certificate: null,
         aadhaar_card: null,

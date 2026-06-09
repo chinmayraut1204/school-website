@@ -10,6 +10,7 @@ import ResultsTab from '../components/admin/ResultsTab';
 import InfrastructureTab from '../components/admin/InfrastructureTab';
 import StaffTab from '../components/admin/StaffTab';
 import StudentCountsTab from '../components/admin/StudentCountsTab';
+import AdmissionsTab from '../components/admin/AdmissionsTab';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminPage = () => {
@@ -20,7 +21,8 @@ const AdminPage = () => {
     switch (activeTab) {
       case 'content':
         return <ContentTab />;
-
+      case 'admissions':
+        return <AdmissionsTab />;
       case 'announcements':
         return <AnnouncementsTab />;
       case 'needs':

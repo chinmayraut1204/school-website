@@ -6,6 +6,7 @@ import Button from '../common/Button';
 import { useToast } from '../../context/ToastContext';
 import { useSchoolData } from '../../context/SchoolDataContext';
 import api from '../../utils/api';
+import campusGround from '../../assets/campus_ground.jpg';
 
 const Contact = () => {
   const { showToast } = useToast();
@@ -62,19 +63,23 @@ const Contact = () => {
   return (
     <section 
       id="contact" 
-      className="pt-10 pb-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-hidden"
+      className="pt-10 pb-24 transition-colors duration-500 relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${campusGround})` }}
     >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-slate-950/85 z-0 pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-3 block">
+          <span className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3 block">
             Get in Touch
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
             Contact Our Administrative Office
           </h2>
           <div className="h-1 w-20 bg-[#1b1a55] dark:bg-indigo-500 mx-auto mb-6 rounded-full" />
-          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+          <p className="text-slate-200 text-sm leading-relaxed font-semibold">
             Have questions about physical donation drops, custom sponsorships, CSR partnerships, or student enrollment? Send us an inquiry.
           </p>
         </div>

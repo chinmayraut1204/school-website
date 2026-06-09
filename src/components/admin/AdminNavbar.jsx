@@ -8,6 +8,7 @@ const AdminNavbar = ({ activeTab, setSidebarOpen, sidebarOpen }) => {
   const getTitle = () => {
     switch (activeTab) {
       case 'content': return 'Content Management';
+      case 'admissions': return 'Admissions Manager';
       case 'announcements': return 'Announcement Board';
       case 'needs': return 'School Needs Manager';
       case 'gallery': return 'Gallery Media Manager';

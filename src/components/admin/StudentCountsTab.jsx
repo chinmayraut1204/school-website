@@ -128,7 +128,7 @@ const StudentCountsTab = () => {
           onClick={() => setSubTab('yearly')}
           className={`flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
             subTab === 'yearly'
-              ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-md'
+              ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-md'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80'
           }`}
         >
@@ -139,7 +139,7 @@ const StudentCountsTab = () => {
           onClick={() => setSubTab('classwise')}
           className={`flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
             subTab === 'classwise'
-              ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-md'
+              ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-md'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80'
           }`}
         >
@@ -312,7 +312,7 @@ const StudentCountsTab = () => {
                   <button key={f} onClick={() => setFilterSection(f)}
                     className={`px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all cursor-pointer ${
                       filterSection === f
-                        ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-sm'
+                        ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-sm'
                         : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80'
                     }`}>
                     {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}

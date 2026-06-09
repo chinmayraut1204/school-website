@@ -215,7 +215,7 @@ const GalleryTab = () => {
                 onClick={() => setSelectedFilterCat(cat)}
                 className={`px-3 py-1 text-[11px] font-bold rounded-lg transition-all duration-300 ${
                   selectedFilterCat === cat
-                    ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-sm'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
               >

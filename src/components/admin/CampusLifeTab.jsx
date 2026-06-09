@@ -65,7 +65,7 @@ const CampusLifeTab = () => {
         url: url.trim()
       });
 
-      showToast('New activity card added to campus life successfully!', 'success');
+      showToast('Sponsor added successfully!', 'success');
       setTitle('');
       setDescription('');
       setUrl('');
@@ -86,16 +86,16 @@ const CampusLifeTab = () => {
       <div className="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 p-6 rounded-3xl h-fit">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-6 uppercase tracking-wider flex items-center gap-2">
           <ImageIcon className="w-4 h-4 text-indigo-500" />
-          Add Campus Life Card
+          Add Sponsor Card
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Slide Title</label>
+            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Sponsor Name</label>
             <input 
               type="text"
               required
-              placeholder="e.g. Science Exhibition 2026"
+              placeholder="e.g. EduGlow Foundation"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none"
@@ -103,10 +103,10 @@ const CampusLifeTab = () => {
           </div>
 
           <div>
-            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Short Description</label>
+            <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Sponsorship / Partner Details</label>
             <textarea 
               rows="3"
-              placeholder="e.g. Students demonstrating robotics projects to guests."
+              placeholder="e.g. Sponsoring smart classroom boards, visual desks, and solar power arrays."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none resize-none leading-relaxed"
@@ -185,7 +185,7 @@ const CampusLifeTab = () => {
             className="w-full font-bold"
             disabled={isReadingFile}
           >
-            {isReadingFile ? 'Reading Image file...' : 'Save Activity Slide'}
+            {isReadingFile ? 'Reading Image file...' : 'Save Sponsor Card'}
           </Button>
         </form>
       </div>
@@ -193,12 +193,12 @@ const CampusLifeTab = () => {
       {/* Directory listing */}
       <div className="lg:col-span-7 space-y-4">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-          Active Campus Activities ({campusLife.length} Items)
+          Active Sponsors List ({campusLife.length} Items)
         </h3>
 
         {campusLife.length === 0 ? (
           <div className="text-center py-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/60 rounded-3xl text-slate-400 text-xs font-semibold">
-            No sponsors configured. Seed defaults will display.
+            No sponsors uploaded yet.
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -232,10 +232,10 @@ const CampusLifeTab = () => {
                 <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-850 flex justify-end">
                   <button
                     onClick={async () => {
-                      if (confirm(`Delete slide card "${item.title}"?`)) {
+                      if (confirm(`Delete sponsor "${item.title}"?`)) {
                         try {
                           await deleteCampusLifeItem(item.id);
-                          showToast('Slide card removed successfully.', 'info');
+                          showToast('Sponsor removed successfully.', 'info');
                         } catch (err) {
                           console.error(err);
                           const errMsg = err.response?.data?.error || err.message || 'Failed to delete from database.';

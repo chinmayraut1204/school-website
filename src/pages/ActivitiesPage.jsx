@@ -4,20 +4,24 @@ import Footer from '../components/landing/Footer';
 import ThemeSwitcher from '../components/common/ThemeSwitcher';
 import ScrollToTop from '../components/common/ScrollToTop';
 import { useSchoolData } from '../context/SchoolDataContext';
+import campusGround from '../assets/campus_ground.jpg';
 
 const ActivitiesPage = () => {
   const { gallery } = useSchoolData();
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-500 overflow-x-hidden selection:bg-indigo-500 selection:text-white">
-      <Navbar />
+    <div 
+      className="relative min-h-screen text-slate-800 dark:text-slate-200 transition-colors duration-500 overflow-x-hidden selection:bg-indigo-500 selection:text-white bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url(${campusGround})` }}
+    >
+      {/* Page-wide dark overlay */}
+      <div className="absolute inset-0 bg-slate-950/70 z-0 pointer-events-none" />
 
-      {/* Hero Header */}
-      <section className="relative pt-28 pb-10 bg-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] bg-indigo-500/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-emerald-500/10 rounded-full blur-[120px]" />
-        </div>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navbar />
+
+        {/* Hero Header */}
+        <section className="relative pt-36 pb-20 text-white overflow-hidden bg-transparent">
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-indigo-400">Campus Vibrancy</span>
@@ -25,13 +29,15 @@ const ActivitiesPage = () => {
             School Activities
           </h1>
           <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full" />
-          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-200 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-semibold">
             Co-curricular excellence, traditional tribal heritage, sports, and science exhibitions.
           </p>
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 py-16 relative z-10">
+      {/* Main Content with solid background */}
+      <div className="bg-slate-50 dark:bg-slate-950 relative z-20 border-t border-slate-200/50 dark:border-slate-800/50 transition-colors duration-500">
+        <main className="max-w-7xl mx-auto px-6 py-16">
         {/* Co-curricular Gallery showcase */}
         {gallery && gallery.length > 0 ? (
           <section className="space-y-12">
@@ -60,11 +66,13 @@ const ActivitiesPage = () => {
             No activities or snapshots available at this moment. Check back later!
           </div>
         )}
-      </main>
+        </main>
+      </div>
 
       <Footer />
       <ThemeSwitcher />
       <ScrollToTop />
+      </div>
     </div>
   );
 };

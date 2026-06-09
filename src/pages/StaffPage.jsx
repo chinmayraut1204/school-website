@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSchoolData } from '../context/SchoolDataContext';
 import Navbar from '../components/landing/Navbar';
 import Footer from '../components/landing/Footer';
-import GlassCard from '../components/common/GlassCard';
 import ThemeSwitcher from '../components/common/ThemeSwitcher';
 import ScrollToTop from '../components/common/ScrollToTop';
 import { Mail, GraduationCap, Briefcase } from 'lucide-react';
@@ -12,23 +11,31 @@ const StaffPage = ({ section }) => {
   const { faculty } = useSchoolData();
 
   const filteredFaculty = faculty.filter(member => {
-    return member.type === section || member.role.toLowerCase().includes('principal');
+    return member.type === section;
   });
 
-  const primarySchoolStaff = filteredFaculty.filter(member => (member.category || 'primary_school') === 'primary_school');
+  const principalStaff = filteredFaculty.filter(member => member.category === 'principal');
+  const primarySchoolStaff = filteredFaculty.filter(member => (member.category || 'school_section') === 'school_section');
   const ashramSchoolStaff = filteredFaculty.filter(member => member.category === 'ashramschool');
 
   const groups = [
     {
-      id: 'primary_school',
-      title: 'Primary School Section',
+      id: 'principal',
+      title: 'Principal',
+      colorClass: 'bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-800/30',
+      borderClass: 'border-slate-200 dark:border-slate-800',
+      staff: principalStaff
+    },
+    {
+      id: 'school_section',
+      title: 'School Section',
       colorClass: 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border-indigo-200/50 dark:border-indigo-800/30',
       borderClass: 'border-slate-200 dark:border-slate-800',
       staff: primarySchoolStaff
     },
     {
       id: 'ashramschool',
-      title: 'Ashramschool Section',
+      title: 'Hostel Section',
       colorClass: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/30',
       borderClass: 'border-slate-200 dark:border-slate-800',
       staff: ashramSchoolStaff
@@ -79,7 +86,10 @@ const StaffPage = ({ section }) => {
               
               <motion.div 
                 layout 
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left"
+                className={group.id === 'principal' 
+                  ? "flex justify-center text-left w-full" 
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left"
+                }
               >
                 <AnimatePresence mode="popLayout">
                   {group.staff.map((member) => (
@@ -90,11 +100,12 @@ const StaffPage = ({ section }) => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
+                      className={group.id === 'principal' ? "w-full max-w-sm" : ""}
                     >
-                      <GlassCard className="h-full flex flex-col justify-between hover:border-indigo-500/20 transition-all duration-300">
-                        <div className="space-y-4">
-                          {/* Portrait Image */}
-                          <div className="aspect-[3/4] rounded-2xl overflow-hidden relative shadow-inner">
+                      <div className="h-full flex flex-col justify-between py-4 px-2 transition-all duration-300">
+                        <div className="space-y-4 flex flex-col items-center w-full">
+                          {/* Portrait Image (Square Shape) */}
+                          <div className="w-56 h-64 rounded-2xl overflow-hidden relative shadow-md border-2 border-slate-150 dark:border-slate-850/50 bg-slate-50 dark:bg-slate-950/40">
                             <img 
                               src={member.image} 
                               alt={member.name} 
@@ -103,23 +114,21 @@ const StaffPage = ({ section }) => {
                           </div>
 
                           {/* Member Info */}
-                          <div className="space-y-2 px-1">
-                            <h3 className="font-extrabold text-slate-850 dark:text-white text-base leading-tight">
+                          <div className="space-y-2 text-center flex flex-col items-center w-full px-2">
+                            <h3 className="font-extrabold text-slate-855 dark:text-white text-lg sm:text-xl leading-tight">
                               {member.name}
                             </h3>
                             
-                            <div className="flex items-center gap-1.5 text-xs text-indigo-650 dark:text-indigo-400 font-bold">
-                              <Briefcase className="w-3.5 h-3.5" />
-                              <span>{member.role.split(' & ')[0]}</span>
+                            <div className="text-sm sm:text-base text-indigo-650 dark:text-indigo-400 font-bold">
+                              {member.role.split(' & ')[0]}
                             </div>
 
-                            <div className="flex items-start gap-1.5 text-[11px] text-slate-500 font-semibold leading-relaxed pt-1">
-                              <GraduationCap className="w-3.5 h-3.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                              <span>{member.qualification}</span>
+                            <div className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                              {member.qualification}
                             </div>
 
                             {member.bio && (
-                              <p className="text-[11px] text-slate-450 dark:text-slate-400 leading-relaxed pt-2">
+                              <p className="text-xs sm:text-sm text-slate-450 dark:text-slate-400 leading-relaxed pt-1">
                                 {member.bio}
                               </p>
                             )}
@@ -128,18 +137,18 @@ const StaffPage = ({ section }) => {
 
                         {/* Mail footer */}
                         {member.email && (
-                          <div className="border-t border-slate-100 dark:border-slate-850 pt-4 mt-6 px-1 flex items-center justify-between">
-                            <span className="text-[10px] text-slate-400 font-bold">CONTACT</span>
+                          <div className="border-t border-slate-100 dark:border-slate-850 pt-4 mt-6 px-1 flex items-center justify-between w-full">
+                            <span className="text-xs text-slate-400 font-bold">CONTACT</span>
                             <a 
                               href={`mailto:${member.email}`}
-                              className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-650 dark:text-indigo-400 hover:underline"
+                              className="inline-flex items-center gap-1 text-xs font-bold text-indigo-650 dark:text-indigo-400 hover:underline"
                             >
                               <Mail className="w-3.5 h-3.5" />
                               Email Desk
                             </a>
                           </div>
                         )}
-                      </GlassCard>
+                      </div>
                     </motion.div>
                   ))}
                 </AnimatePresence>

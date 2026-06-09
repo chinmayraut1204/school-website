@@ -14,6 +14,7 @@ import {
   Award
 } from 'lucide-react';
 import { useSchoolData } from '../context/SchoolDataContext';
+import studentsClassroom from '../assets/students_classroom.jpg';
 
 const StudentsPage = () => {
   const { studentCounts, classStudents } = useSchoolData();
@@ -58,19 +59,20 @@ const StudentsPage = () => {
       <Navbar />
 
       {/* Hero Header */}
-      <section className="relative pt-28 pb-10 bg-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] bg-indigo-500/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-emerald-500/10 rounded-full blur-[120px]" />
-        </div>
+      <section 
+        className="relative pt-28 pb-10 text-white overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `url(${studentsClassroom})` }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-slate-950/70 z-0" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Enrollment details</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-indigo-400">Enrollment details</span>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white max-w-4xl mx-auto leading-tight">
             पटसंख्या (Student Strength)
           </h1>
           <div className="h-1 w-16 bg-[#1b1a55] dark:bg-indigo-500 mx-auto rounded-full" />
-          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-200 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-semibold">
             Eklavya Ashramschool class-wise enrollment numbers for Primary, Secondary, and Higher Secondary divisions.
           </p>
         </div>
@@ -204,7 +206,7 @@ const StudentsPage = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 cursor-pointer ${
                   activeTab === tab.id 
-                    ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-md' 
+                    ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-md' 
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80'
                 }`}
               >

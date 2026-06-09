@@ -9,32 +9,24 @@ import { Award, Heart, HelpCircle, Users, CheckCircle2 } from 'lucide-react';
 import { useSchoolData } from '../context/SchoolDataContext';
 
 const SponsorsPage = () => {
-  const { sponsors } = useSchoolData();
+  const { campusLife } = useSchoolData();
 
-  // Helper to add contribution metadata dynamically
-  const getSponsorMeta = (logoText) => {
-    switch (logoText) {
-      case 'EGF':
-        return { cat: 'Gold Partner', scope: 'Infrastructure Support', desc: 'Sponsoring smart classroom boards, visual desks, and solar power arrays.' };
-      case 'FTS':
-        return { cat: 'Technology Partner', scope: 'Digital Literacy', desc: 'Providing desktop computer systems, programming manuals, and lab software.' };
-      case 'CHT':
-        return { cat: 'Silver Partner', scope: 'Residential Welfare', desc: 'Contributing dormitory cupboards, hostel lighting fixtures, and filtration kits.' };
-      case 'APEX':
-        return { cat: 'Logistics Partner', scope: 'Supply Chain support', desc: 'Ensuring weekly supply of books, science kits, and sports accessories.' };
-      case 'SSE':
-        return { cat: 'Eco-Green Partner', scope: 'Clean campus energy', desc: 'Configuring rooftop solar systems to support round-the-clock power to ICT labs.' };
-      case 'PFC':
-        return { cat: 'Nutrition Partner', scope: 'Student Protein Diet', desc: 'Funding daily balanced hostel nutrition packs, milk, and seasonal fruits.' };
-      default:
-        return { cat: 'Associate Partner', scope: 'General Welfare Fund', desc: 'Supporting scholarship funds and local sports trial travel costs.' };
-    }
-  };
+  const formattedSponsors = campusLife.map((s, idx) => {
+    // Dynamically assign premium-looking partner tiers and categories
+    const categories = ['Gold Partner', 'Technology Partner', 'Silver Partner', 'Eco-Green Partner', 'Nutrition Partner'];
+    const scopes = ['Infrastructure Support', 'Digital Literacy', 'Residential Welfare', 'Clean Campus Energy', 'Student Nutrition'];
+    const cat = categories[idx % categories.length];
+    const scope = scopes[idx % scopes.length];
 
-  const formattedSponsors = sponsors.map(s => ({
-    ...s,
-    ...getSponsorMeta(s.logoText)
-  }));
+    return {
+      id: s.id,
+      name: s.title,
+      desc: s.description || 'Supporting residential care and quality education for tribal children.',
+      url: s.url,
+      scope,
+      cat
+    };
+  });
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-500 overflow-x-hidden selection:bg-indigo-500 selection:text-white">
@@ -72,11 +64,13 @@ const SponsorsPage = () => {
             {formattedSponsors.map((spon, idx) => (
               <GlassCard key={spon.id} className="p-6 flex flex-col justify-between hover:border-emerald-500/20 transition-all duration-300">
                 <div className="space-y-4">
-                  {/* Mock corporate logo */}
-                  <div className="h-28 rounded-2xl bg-slate-100 dark:bg-slate-950 flex items-center justify-center border border-slate-200/50 dark:border-slate-850 shadow-inner group">
-                    <span className="text-2xl font-black text-indigo-650 dark:text-indigo-400 tracking-widest opacity-80 group-hover:scale-105 transition-transform">
-                      {spon.logoText}
-                    </span>
+                  {/* Corporate logo image */}
+                  <div className="h-28 rounded-2xl bg-slate-100 dark:bg-slate-950 flex items-center justify-center border border-slate-200/50 dark:border-slate-850 shadow-inner overflow-hidden group">
+                    <img 
+                      src={spon.url} 
+                      alt={spon.name} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
                   </div>
 
                   <div className="space-y-1">

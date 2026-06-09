@@ -3,66 +3,13 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useSchoolData } from '../../context/SchoolDataContext';
 
-const carouselItems = [
-  {
-    title: "Classroom Activities",
-    description: "Interactive learning in modern digital classrooms.",
-    url: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Science Lab",
-    description: "Hands-on experiments in our physics, chemistry, and biology labs.",
-    url: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Computer Lab",
-    description: "Coding bootcamps and digital literacy training sessions.",
-    url: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Sports Events",
-    description: "Fierce athletics meets, volleyball championships, and archery drills.",
-    url: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Cultural Programs",
-    description: "Traditional Warli art workshops and folk music celebrations.",
-    url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Annual Day",
-    description: "Grand stage performances, dramas, and academic prize distributions.",
-    url: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Competitions",
-    description: "Inter-school science exhibitions, chess tourneys, and debates.",
-    url: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "School Celebrations",
-    description: "Republic Day parades, Independence Day events, and festivals.",
-    url: "https://images.unsplash.com/photo-1505232458627-539c1793a52d?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Educational Tours",
-    description: "Outdoor environmental excursions, museum visits, and science city tours.",
-    url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Student Achievements",
-    description: "Celebrating state-level archery champions and top rankers.",
-    url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
-  }
-];
-
 const CampusLife = () => {
   const { campusLife } = useSchoolData();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(4);
   const [isPaused, setIsPaused] = useState(false);
 
-  const items = campusLife && campusLife.length > 0 ? campusLife : carouselItems;
+  const items = campusLife || [];
 
   useEffect(() => {
     const handleResize = () => {
@@ -181,7 +128,7 @@ const CampusLife = () => {
                   {/* Card Content overlay */}
                   <div className="relative z-20 text-left">
                     <span className="text-[10px] uppercase font-extrabold text-emerald-400 mb-2 tracking-widest block">
-                      Eklavya Campus
+                      Active Sponsor
                     </span>
                     <h3 className="text-lg font-bold text-white mb-2 leading-tight drop-shadow-sm">
                       {item.title}

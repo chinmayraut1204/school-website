@@ -186,7 +186,7 @@ const Hero = () => {
                   href="mailto:gagangiriashram@gmail.com?subject=Donation%20Inquiry%20-%20Eklavya%20Ashramschool&body=Hello%20Eklavya%20Ashramschool%20desk%2C%20I%20would%20like%20to%20inquire%20about%20donating%20to%20the%2520school."
                   className="flex items-center gap-3 w-full p-3.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/20 dark:hover:bg-indigo-950/45 border border-indigo-250 dark:border-indigo-900/30 rounded-2xl transition-all duration-200 group text-left cursor-pointer decoration-none"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-indigo-650 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>

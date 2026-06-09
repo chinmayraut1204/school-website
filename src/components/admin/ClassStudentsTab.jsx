@@ -263,7 +263,7 @@ const ClassStudentsTab = () => {
                 onClick={() => setFilterSection(f)}
                 className={`px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all cursor-pointer ${
                   filterSection === f
-                    ? 'bg-indigo-650 dark:bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-indigo-600 dark:bg-indigo-600 text-white shadow-sm'
                     : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80'
                 }`}
               >

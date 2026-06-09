@@ -10,6 +10,7 @@ import {
   GraduationCap,
   ClipboardList,
   Building,
+  FileCheck,
   Users,
   Calendar
 } from 'lucide-react';
@@ -18,6 +19,7 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
   const navigate = useNavigate();
   const menuItems = [
     { id: 'content', name: 'School Content', icon: <FileText className="w-5 h-5" /> },
+    { id: 'admissions', name: 'Admissions', icon: <FileCheck className="w-5 h-5" /> },
     { id: 'announcements', name: 'Announcements', icon: <Megaphone className="w-5 h-5" /> },
     { id: 'needs', name: 'School Needs', icon: <ClipboardList className="w-5 h-5" /> },
     { id: 'gallery', name: 'Gallery Manager', icon: <ImageIcon className="w-5 h-5" /> },

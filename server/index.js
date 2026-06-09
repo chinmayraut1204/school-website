@@ -14,12 +14,21 @@ const JWT_SECRET = process.env.JWT_SECRET || 'supergagangirisecret';
 
 // Enable CORS for frontend Vite client
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: true, // Dynamically allow request origin to support all local IPs/loopbacks
   credentials: true
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Request logger middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  if (req.method !== 'GET') {
+    console.log('Body:', JSON.stringify(req.body));
+  }
+  next();
+});
 
 // Initialize Database connection on start
 let isDbOnline = false;
@@ -214,6 +223,7 @@ app.post('/api/student-counts', checkDbStatus, authenticateToken, async (req, re
       res.status(201).json({ id, academic_year, boys: bCount, girls: gCount, total });
     }
   } catch (error) {
+    console.error('Error in POST /api/student-counts:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -260,6 +270,7 @@ app.post('/api/class-students', checkDbStatus, authenticateToken, async (req, re
     );
     res.status(201).json({ id, grade, english_grade, boys: bCount, girls: gCount, total, section, sort_order: order });
   } catch (error) {
+    console.error('Error in POST /api/class-students:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -283,6 +294,7 @@ app.put('/api/class-students/:id', checkDbStatus, authenticateToken, async (req,
     );
     res.json({ id: req.params.id, grade, english_grade, boys: bCount, girls: gCount, total, section, sort_order: order });
   } catch (error) {
+    console.error('Error in PUT /api/class-students/:id:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -585,6 +597,28 @@ app.post('/api/admissions', checkDbStatus, async (req, res) => {
     await db.query(query, values);
     res.status(201).json({ success: true, message: 'Application submitted successfully to database!' });
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/admissions', checkDbStatus, authenticateToken, async (req, res) => {
+  try {
+    const db = getPool();
+    const [applications] = await db.query('SELECT * FROM admissions ORDER BY submitted_at DESC');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error in GET /api/admissions:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete('/api/admissions/:id', checkDbStatus, authenticateToken, async (req, res) => {
+  try {
+    const db = getPool();
+    await db.query('DELETE FROM admissions WHERE id = ?', [req.params.id]);
+    res.json({ success: true, message: 'Admission application deleted.' });
+  } catch (error) {
+    console.error('Error in DELETE /api/admissions/:id:', error);
     res.status(500).json({ error: error.message });
   }
 });
